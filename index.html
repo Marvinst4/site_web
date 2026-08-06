@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Les Petits Explorateurs ouvre les portes de la culture, du sport et des loisirs aux enfants." />
+    <title>Les Petits Explorateurs — Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#accueil" aria-label="Les Petits Explorateurs, accueil">
+        <span class="brand-mark">✦</span>
+        <span>Les Petits<br /><strong>Explorateurs</strong></span>
+      </a>
+      <nav aria-label="Navigation principale">
+        <a href="#mission">Notre mission</a>
+        <a href="#activites">Les activités</a>
+        <a href="#agir">Nous aider</a>
+      </nav>
+      <a class="button button-small" href="#agir">Je soutiens</a>
+    </header>
+
+    <main id="accueil">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Pour que chaque enfant ait le droit de s’émerveiller</p>
+          <h1>Ouvrons le monde<br />à tous les enfants.</h1>
+          <p class="lead">Les Petits Explorateurs rend la culture, les loisirs et les sorties accessibles aux enfants qui en sont le plus éloignés.</p>
+          <div class="hero-actions">
+            <a class="button" href="#activites">Découvrir nos activités <span>→</span></a>
+            <a class="text-link" href="#mission">Notre histoire <span>↓</span></a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+          <div class="hill hill-back"></div><div class="hill hill-front"></div>
+          <div class="star star-one">✦</div><div class="star star-two">✦</div>
+          <div class="kids"><span class="kid kid-one">●</span><span class="kid kid-two">●</span><span class="kid kid-three">●</span></div>
+        </div>
+      </section>
+
+      <section class="impact" aria-label="Nos repères">
+        <div><strong>1 200</strong><span>enfants accompagnés</span></div>
+        <div><strong>86</strong><span>sorties organisées</span></div>
+        <div><strong>24</strong><span>partenaires engagés</span></div>
+      </section>
+
+      <section id="mission" class="mission section">
+        <div><p class="eyebrow">Notre mission</p><h2>Grandir, c’est aussi pouvoir découvrir.</h2></div>
+        <div class="mission-text"><p>Un musée, un match, une séance de cinéma ou une journée dans un parc d’attractions : ces moments créent des souvenirs, nourrissent la curiosité et renforcent la confiance en soi.</p><p>Nous finançons et organisons des activités collectives pour les enfants issus de familles en situation de précarité.</p><a class="text-link" href="#agir">En savoir plus sur l’association <span>→</span></a></div>
+      </section>
+
+      <section id="activites" class="activities section">
+        <div class="section-heading"><div><p class="eyebrow">À vivre bientôt</p><h2>Des aventures qui les attendent.</h2></div><button class="text-link admin-toggle" type="button">Gérer les activités <span>→</span></button></div>
+        <div id="activity-list" class="activity-grid" aria-live="polite"></div>
+        <p id="empty-state" class="empty-state" hidden>Aucune activité programmée pour le moment.</p>
+      </section>
+
+      <section id="agir" class="cta">
+        <div><p class="eyebrow">À vos côtés</p><h2>Un petit geste peut ouvrir un très grand horizon.</h2></div>
+        <div class="cta-options"><button class="button light-button" data-open-modal="don">Faire un don <span>→</span></button><button class="button outline-button" data-open-modal="inscription">Inscrire un enfant <span>→</span></button></div>
+      </section>
+    </main>
+
+    <footer><a class="brand" href="#accueil"><span class="brand-mark">✦</span><span>Les Petits<br /><strong>Explorateurs</strong></span></a><p>© 2026 Les Petits Explorateurs · Une association à imaginer ensemble.</p></footer>
+
+    <dialog id="form-modal">
+      <button class="close" aria-label="Fermer">×</button>
+      <div id="modal-content"></div>
+    </dialog>
+    <dialog id="admin-modal">
+      <button class="close" aria-label="Fermer">×</button>
+      <form id="activity-form"><p class="eyebrow">Espace activités</p><h2>Ajouter une sortie</h2><label>Titre<input name="title" required placeholder="Ex. Journée au musée" /></label><label>Date<input name="date" type="date" required /></label><label>Lieu<input name="place" required placeholder="Ex. Musée d'Orsay" /></label><label>Places disponibles<input name="spots" type="number" min="1" value="20" required /></label><label>Catégorie<select name="category"><option>Culture</option><option>Loisirs</option><option>Nature</option><option>Sport</option></select></label><button class="button" type="submit">Ajouter l’activité <span>→</span></button></form>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
