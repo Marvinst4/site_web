@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="contact.css" />
   </head>
   <body>
     <header class="site-header">
@@ -19,6 +20,7 @@
       <nav aria-label="Navigation principale">
         <a href="#mission">Notre mission</a>
         <a href="#activites">Les activités</a>
+        <a href="#contact">Nous contacter</a>
         <a href="#agir">Nous aider</a>
       </nav>
       <a class="button button-small" href="#agir">Je soutiens</a>
@@ -64,6 +66,22 @@
         <div><p class="eyebrow">À vos côtés</p><h2>Un petit geste peut ouvrir un très grand horizon.</h2></div>
         <div class="cta-options"><button class="button light-button" data-open-modal="don">Faire un don <span>→</span></button><button class="button outline-button" data-open-modal="inscription">Inscrire un enfant <span>→</span></button></div>
       </section>
+
+      <section id="contact" class="contact section">
+        <div>
+          <p class="eyebrow">Une question ?</p>
+          <h2>Parlons de votre projet.</h2>
+          <p class="contact-copy">Vous souhaitez devenir bénévole, proposer un partenariat ou simplement en savoir plus ? Écrivez-nous.</p>
+          <a class="email-link" href="mailto:st4ssx@gmail.com">st4ssx@gmail.com</a>
+        </div>
+        <form id="contact-form" class="contact-form">
+          <label>Votre nom<input required name="name" autocomplete="name" /></label>
+          <label>Votre adresse e-mail<input required type="email" name="email" autocomplete="email" /></label>
+          <label>Votre message<textarea required name="message" rows="5" placeholder="Bonjour, je souhaiterais…"></textarea></label>
+          <button class="button" type="submit">Envoyer mon message <span>→</span></button>
+          <p class="form-note">Votre application de messagerie s’ouvrira avec le message prêt à être envoyé.</p>
+        </form>
+      </section>
     </main>
 
     <footer><a class="brand" href="#accueil"><span class="brand-mark">✦</span><span>Les Petits<br /><strong>Explorateurs</strong></span></a><p>© 2026 Les Petits Explorateurs · Une association à imaginer ensemble.</p></footer>
@@ -76,6 +94,7 @@
       <button class="close" aria-label="Fermer">×</button>
       <form id="activity-form"><p class="eyebrow">Espace activités</p><h2>Ajouter une sortie</h2><label>Titre<input name="title" required placeholder="Ex. Journée au musée" /></label><label>Date<input name="date" type="date" required /></label><label>Lieu<input name="place" required placeholder="Ex. Musée d'Orsay" /></label><label>Places disponibles<input name="spots" type="number" min="1" value="20" required /></label><label>Catégorie<select name="category"><option>Culture</option><option>Loisirs</option><option>Nature</option><option>Sport</option></select></label><button class="button" type="submit">Ajouter l’activité <span>→</span></button></form>
     </dialog>
+    <script src="supabase-config.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

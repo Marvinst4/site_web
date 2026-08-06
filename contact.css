@@ -1,0 +1,7 @@
+textarea { display:block; width:100%; margin-top:6px; border:1px solid #cbd7cd; border-radius:9px; padding:11px; font:15px "DM Sans", sans-serif; background:#fff; resize:vertical; }
+.contact { display:grid; grid-template-columns:1fr 1fr; gap:11vw; background:#fffaf0; }
+.contact-copy { max-width:430px; line-height:1.6; color:#496461; font-size:17px; }
+.email-link { display:inline-block; color:#eb6d56; font-weight:700; font-size:18px; margin-top:8px; }
+.contact-form { background:#edf4ed; border-radius:17px; padding:24px; }
+.form-note { font-size:12px; color:#58706c; line-height:1.45; margin:13px 0 0; }
+@media (max-width:720px) { .contact { grid-template-columns:1fr; gap:35px; } }
