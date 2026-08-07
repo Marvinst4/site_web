@@ -1,0 +1,11 @@
+.privacy-page { max-width:900px; margin:0 auto; padding:85px 8vw 110px; }
+.privacy-page h1 { font:700 clamp(45px,5vw,68px)/1.03 Fraunces,serif; letter-spacing:-.05em; margin:0 0 22px; }
+.privacy-intro { max-width:620px; font-size:19px; line-height:1.6; color:#496461; margin-bottom:8px; }
+.updated { font-size:13px; color:#708580; margin-bottom:55px; }
+.privacy-page section { border-top:1px solid #dce1d6; padding:29px 0; }
+.privacy-page section h2 { font-size:28px; margin-bottom:12px; }
+.privacy-page section p { max-width:720px; color:#496461; line-height:1.65; margin:0; }
+.privacy-page section a, .privacy-check a { color:#d85c47; font-weight:700; }
+.privacy-check { display:flex; align-items:flex-start; gap:9px; font-size:12px; font-weight:400; line-height:1.45; color:#496461; }
+.privacy-check input { display:block; width:auto; margin:3px 0 0; padding:0; }
+.return-registration { margin-top:18px; }

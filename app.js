@@ -57,7 +57,7 @@ document.querySelectorAll("[data-open-modal]").forEach(button => button.addEvent
     <form id="don-form"><label>Votre prénom<input required name="name" autocomplete="given-name" /></label><label>Votre adresse e-mail<input required type="email" name="email" autocomplete="email" /></label><label>Montant souhaité (€)<input required type="number" min="1" name="amount" value="20" /></label><button class="button">Je confirme mon intention de don <span>→</span></button></form>` : `
     <p class="eyebrow">Participer</p><h2>Inscrire un enfant</h2>
     <p>Nous vous recontacterons pour vérifier les modalités et finaliser l’inscription.</p>
-    <form id="registration-form"><label>Nom du responsable<input required name="guardian" /></label><label>Adresse e-mail<input required type="email" name="email" /></label><label>Prénom de l’enfant<input required name="child" /></label><label>Activité souhaitée<select name="activity">${getActivities().map(a => `<option>${a.title}</option>`).join("")}</select></label><button class="button">Envoyer la demande <span>→</span></button></form>`;
+    <form id="registration-form"><label>Nom du responsable<input required name="guardian" /></label><label>Adresse e-mail<input required type="email" name="email" /></label><label>Prénom de l’enfant<input required name="child" /></label><label>Activité souhaitée<select name="activity">${getActivities().map(a => `<option>${a.title}</option>`).join("")}</select></label><label class="privacy-check"><input required type="checkbox" name="privacy" /> <span>J’ai lu la <a href="confidentialite.html">politique de confidentialité</a> et j’accepte que ces données soient utilisées pour traiter cette demande.</span></label><button class="button">Envoyer la demande <span>→</span></button></form>`;
   modal.showModal();
 }));
 
@@ -101,3 +101,8 @@ document.addEventListener("submit", async event => {
 });
 
 renderActivities();
+
+if (new URLSearchParams(window.location.search).get("inscription") === "1") {
+  window.history.replaceState({}, "", "index.html#agir");
+  document.querySelector('[data-open-modal="inscription"]').click();
+}
