@@ -1,0 +1,5 @@
+.site-header { position:relative; }
+.site-header nav { position:absolute; left:50%; transform:translateX(-50%); align-items:center; white-space:nowrap; }
+.site-header nav .story-link { background:#f5c843; color:#173a38; border-radius:999px; padding:10px 16px; box-shadow:0 2px 0 rgba(23,58,56,.12); transition:transform .2s, background .2s; }
+.site-header nav .story-link:hover, .site-header nav .story-link[aria-current="page"] { background:#eb6d56; color:#fff; transform:translateY(-2px); }
+@media (max-width:720px) { .site-header nav { position:static; transform:none; } }
