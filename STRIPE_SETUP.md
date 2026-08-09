@@ -3,14 +3,14 @@
 Le site est prêt à tester Stripe Checkout, à générer un PDF de confirmation sans valeur fiscale et à l'envoyer au donateur. Les secrets ci-dessous ne doivent jamais être ajoutés à GitHub.
 
 1. Exécutez `supabase/migrations/002_donations.sql` dans le SQL Editor de Supabase.
-2. Créez un compte Resend, une clé API et une adresse d'expédition vérifiée. La fonction ajoute automatiquement `st4ssx@gmail.com` en copie cachée.
+2. Créez un compte Resend, une clé API et une adresse d'expédition vérifiée. La fonction ajoute automatiquement `infos@lesjeunesexplorateurs.fr` en copie cachée.
 3. Ajoutez les secrets Supabase suivants :
 
 ```text
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 RESEND_API_KEY=re_...
-EMAIL_FROM=Les Jeunes Explorateurs <onboarding@resend.dev>
+EMAIL_FROM=Les Jeunes Explorateurs <infos@lesjeunesexplorateurs.fr>
 SITE_URL=https://marvinst4.github.io/site_web
 ```
 

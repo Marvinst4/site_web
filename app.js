@@ -87,7 +87,7 @@ document.addEventListener("submit", async event => {
     const data = Object.fromEntries(new FormData(event.target));
     const subject = encodeURIComponent(`Message depuis Les Jeunes Explorateurs — ${data.name}`);
     const body = encodeURIComponent(`Nom : ${data.name}\nE-mail : ${data.email}\n\nMessage :\n${data.message}`);
-    window.location.href = `mailto:st4ssx@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:infos@lesjeunesexplorateurs.fr?subject=${subject}&body=${body}`;
     return;
   }
   if (event.target.id === "activity-form") {
@@ -111,7 +111,7 @@ document.addEventListener("submit", async event => {
       const note = storage === "database" ? "Votre demande a été enregistrée." : "Votre demande est enregistrée sur cet appareil. Connectez Supabase avant la mise en ligne pour la recevoir dans votre base.";
       modalContent.innerHTML = `<p class="eyebrow">C’est enregistré</p><h2>Merci !</h2><p>${note} Nous vous contacterons très bientôt.</p><button class="button" onclick="document.querySelector('#form-modal').close()">Fermer</button>`;
     } catch (error) {
-      modalContent.innerHTML = `<p class="eyebrow">Un problème est survenu</p><h2>La demande n’a pas été envoyée.</h2><p>Veuillez réessayer dans quelques instants ou nous contacter par e-mail.</p><a class="button" href="mailto:st4ssx@gmail.com">Nous écrire</a>`;
+      modalContent.innerHTML = `<p class="eyebrow">Un problème est survenu</p><h2>La demande n’a pas été envoyée.</h2><p>Veuillez réessayer dans quelques instants ou nous contacter par e-mail.</p><a class="button" href="mailto:infos@lesjeunesexplorateurs.fr">Nous écrire</a>`;
     }
   }
 });

@@ -18,7 +18,7 @@ async function createPdf(number: string, donorName: string, amount: number) {
 }
 
 async function sendEmail(to: string, pdf: Uint8Array, number: string) {
-  const response = await fetch("https://api.resend.com/emails", { method: "POST", headers: { "Authorization": `Bearer ${Deno.env.get("RESEND_API_KEY")}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: Deno.env.get("EMAIL_FROM"), to: [to], bcc: ["st4ssx@gmail.com"], subject: "Votre confirmation de don - Les Jeunes Explorateurs", html: `<p>Merci pour votre soutien.</p><p>Votre confirmation de don de test, sans valeur fiscale, est jointe à cet e-mail.</p><p>Référence : <strong>${number}</strong></p>`, attachments: [{ filename: `${number}.pdf`, content: asBase64(pdf) }] }) });
+  const response = await fetch("https://api.resend.com/emails", { method: "POST", headers: { "Authorization": `Bearer ${Deno.env.get("RESEND_API_KEY")}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: Deno.env.get("EMAIL_FROM"), to: [to], bcc: ["infos@lesjeunesexplorateurs.fr"], subject: "Votre confirmation de don - Les Jeunes Explorateurs", html: `<p>Merci pour votre soutien.</p><p>Votre confirmation de don de test, sans valeur fiscale, est jointe à cet e-mail.</p><p>Référence : <strong>${number}</strong></p>`, attachments: [{ filename: `${number}.pdf`, content: asBase64(pdf) }] }) });
   if (!response.ok) throw new Error(`Envoi e-mail impossible : ${await response.text()}`);
 }
 
