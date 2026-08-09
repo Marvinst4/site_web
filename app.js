@@ -85,7 +85,7 @@ document.addEventListener("submit", async event => {
   if (event.target.id === "contact-form") {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
-    const subject = encodeURIComponent(`Message depuis Les Petits Explorateurs — ${data.name}`);
+    const subject = encodeURIComponent(`Message depuis Les Jeunes Explorateurs — ${data.name}`);
     const body = encodeURIComponent(`Nom : ${data.name}\nE-mail : ${data.email}\n\nMessage :\n${data.message}`);
     window.location.href = `mailto:st4ssx@gmail.com?subject=${subject}&body=${body}`;
     return;
