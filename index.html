@@ -9,15 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="logo.css" />
     <link rel="stylesheet" href="navigation.css" />
     <link rel="stylesheet" href="contact.css" />
     <link rel="stylesheet" href="privacy.css" />
-    <link rel="stylesheet" href="cursor.css" />
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="#accueil" aria-label="Les Petits Explorateurs, accueil">
-        <span class="brand-mark">✦</span>
+        <img class="brand-logo" src="images/logo-petits-explorateurs.png" alt="Logo Les Petits Explorateurs" />
         <span>Les Petits<br /><strong>Explorateurs</strong></span>
       </a>
       <nav aria-label="Navigation principale">
@@ -88,7 +88,7 @@
       </section>
     </main>
 
-    <footer><a class="brand" href="#accueil"><span class="brand-mark">✦</span><span>Les Petits<br /><strong>Explorateurs</strong></span></a><p>© 2026 Les Petits Explorateurs · <a class="footer-link" href="confidentialite.html">Politique de confidentialité</a></p></footer>
+    <footer><a class="brand" href="#accueil"><img class="brand-logo" src="images/logo-petits-explorateurs.png" alt="Logo Les Petits Explorateurs" /><span>Les Petits<br /><strong>Explorateurs</strong></span></a><p>© 2026 Les Petits Explorateurs · <a class="footer-link" href="confidentialite.html">Politique de confidentialité</a></p></footer>
 
     <dialog id="form-modal">
       <button class="close" aria-label="Fermer">×</button>
@@ -99,7 +99,7 @@
       <form id="activity-form"><p class="eyebrow">Espace activités</p><h2>Ajouter une sortie</h2><label>Titre<input name="title" required placeholder="Ex. Journée au musée" /></label><label>Date<input name="date" type="date" required /></label><label>Lieu<input name="place" required placeholder="Ex. Musée d'Orsay" /></label><label>Places disponibles<input name="spots" type="number" min="1" value="20" required /></label><label>Catégorie<select name="category"><option>Culture</option><option>Loisirs</option><option>Nature</option><option>Sport</option></select></label><button class="button" type="submit">Ajouter l’activité <span>→</span></button></form>
     </dialog>
     <script src="supabase-config.js"></script>
+    <script src="stripe-config.js"></script>
     <script src="app.js"></script>
-    <script src="cursor.js"></script>
   </body>
 </html>

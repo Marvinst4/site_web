@@ -35,6 +35,22 @@ async function saveRegistration(data) {
   return "database";
 }
 
+async function beginDonationCheckout(data) {
+  const supabase = window.SUPABASE_CONFIG;
+  const stripe = window.STRIPE_CONFIG;
+  if (!supabase?.url || !supabase?.anonKey || !stripe?.publishableKey) {
+    throw new Error("Le paiement test n’est pas encore configuré.");
+  }
+  const response = await fetch(`${supabase.url.replace(/\/$/, "")}/functions/v1/create-donation-checkout`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "apikey": supabase.anonKey, "Authorization": `Bearer ${supabase.anonKey}` },
+    body: JSON.stringify({ name: data.name, email: data.email, amount: Number(data.amount) })
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || !result.url) throw new Error(result.error || "Impossible de démarrer le paiement.");
+  window.location.assign(result.url);
+}
+
 function renderActivities() {
   const activities = getActivities();
   const list = document.querySelector("#activity-list");
@@ -53,8 +69,8 @@ document.querySelectorAll("[data-open-modal]").forEach(button => button.addEvent
   const type = button.dataset.openModal;
   modalContent.innerHTML = type === "don" ? `
     <p class="eyebrow">Merci pour votre soutien</p><h2>Faire un don</h2>
-    <p>Votre don permettra de financer des sorties, transports et goûters pour les enfants. Cette démonstration n’encaisse aucun paiement.</p>
-    <form id="don-form"><label>Votre prénom<input required name="name" autocomplete="given-name" /></label><label>Votre adresse e-mail<input required type="email" name="email" autocomplete="email" /></label><label>Montant souhaité (€)<input required type="number" min="1" name="amount" value="20" /></label><button class="button">Je confirme mon intention de don <span>→</span></button></form>` : `
+    <p>Votre don permettra de financer des sorties, transports et goûters pour les enfants. Le paiement s’effectue dans l’environnement de test Stripe : aucun montant réel ne sera prélevé.</p>
+    <form id="don-form"><label>Votre prénom<input required name="name" autocomplete="given-name" /></label><label>Votre adresse e-mail<input required type="email" name="email" autocomplete="email" /></label><label>Montant souhaité (€)<input required type="number" min="1" step="0.01" name="amount" value="20" /></label><button class="button">Tester le paiement sécurisé <span>→</span></button></form>` : `
     <p class="eyebrow">Participer</p><h2>Inscrire un enfant</h2>
     <p>Nous vous recontacterons pour vérifier les modalités et finaliser l’inscription.</p>
     <form id="registration-form"><label>Nom du responsable<input required name="guardian" /></label><label>Adresse e-mail<input required type="email" name="email" /></label><label>Prénom de l’enfant<input required name="child" /></label><label>Activité souhaitée<select name="activity">${getActivities().map(a => `<option>${a.title}</option>`).join("")}</select></label><label class="privacy-check"><input required type="checkbox" name="privacy" /> <span>J’ai lu la <a href="confidentialite.html">politique de confidentialité</a> et j’accepte que ces données soient utilisées pour traiter cette demande.</span></label><button class="button">Envoyer la demande <span>→</span></button></form>`;
@@ -85,9 +101,9 @@ document.addEventListener("submit", async event => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
     if (event.target.id === "don-form") {
-      const existing = JSON.parse(localStorage.getItem("petits-explorateurs-don-intentions")) || [];
-      localStorage.setItem("petits-explorateurs-don-intentions", JSON.stringify([...existing, { ...data, createdAt: new Date().toISOString() }]));
-      modalContent.innerHTML = `<p class="eyebrow">C’est enregistré</p><h2>Merci !</h2><p>Votre intention de don a bien été enregistrée. Nous vous contacterons très bientôt.</p><button class="button" onclick="document.querySelector('#form-modal').close()">Fermer</button>`;
+      modalContent.innerHTML = `<p class="eyebrow">Paiement test</p><h2>Redirection sécurisée…</h2><p>Vous allez être redirigé vers Stripe. Utilisez une carte de test : 4242 4242 4242 4242, une date future et un CVC de trois chiffres.</p>`;
+      try { await beginDonationCheckout(data); }
+      catch (error) { modalContent.innerHTML = `<p class="eyebrow">Configuration requise</p><h2>Le paiement test n’est pas encore disponible.</h2><p>${error.message} Consultez STRIPE_SETUP.md pour déployer les fonctions sécurisées.</p><button class="button" onclick="document.querySelector('#form-modal').close()">Fermer</button>`; }
       return;
     }
     try {

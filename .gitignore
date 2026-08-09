@@ -1,0 +1,5 @@
+# Ne jamais publier de clés privées ou de secrets.
+.env
+.env.*
+!.env.example
+.supabase/
