@@ -1,0 +1,155 @@
+.access-to-leisure {
+  background: #fffdf7;
+}
+
+.access-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  column-gap: 9vw;
+  align-items: end;
+  margin-bottom: 48px;
+}
+
+.access-intro .eyebrow,
+.access-intro h2 {
+  grid-column: 1;
+}
+
+.access-intro p:last-child {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+  color: #496461;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.access-data {
+  display: grid;
+  grid-template-columns: 1.18fr 1fr 1fr;
+  gap: 18px;
+}
+
+.data-card {
+  display: flex;
+  min-height: 278px;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid #dce1d6;
+  border-radius: 18px;
+  background: #f5f0e6;
+}
+
+.data-card-main {
+  border-color: #173a38;
+  background: #173a38;
+  color: #fffaf0;
+}
+
+.data-label {
+  color: #d85c47;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.data-card strong {
+  display: block;
+  margin: 26px 0 14px;
+  color: #173a38;
+  font: 700 clamp(38px, 4vw, 57px)/.95 Fraunces, serif;
+  letter-spacing: -.06em;
+}
+
+.data-card-main strong {
+  color: #f5c843;
+}
+
+.data-card p {
+  margin: 0;
+  color: #496461;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.data-card-main p {
+  color: #d8e2dc;
+}
+
+.data-card a {
+  margin-top: auto;
+  padding-top: 19px;
+  color: #496461;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.data-card-main a {
+  color: #fffaf0;
+}
+
+.data-card a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.access-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin-top: 28px;
+  padding: 24px 28px;
+  border-radius: 16px;
+  background: #edf4ed;
+}
+
+.access-action p {
+  max-width: 630px;
+  margin: 0;
+  color: #496461;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.access-action .text-link {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 720px) {
+  .access-intro {
+    display: block;
+    margin-bottom: 32px;
+  }
+
+  .access-intro p:last-child {
+    margin-top: 25px;
+    font-size: 16px;
+  }
+
+  .access-data {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .data-card {
+    min-height: 230px;
+  }
+
+  .data-card strong {
+    margin-top: 20px;
+  }
+
+  .access-action {
+    display: block;
+    padding: 23px;
+  }
+
+  .access-action .text-link {
+    display: inline-block;
+    margin-top: 18px;
+  }
+}
