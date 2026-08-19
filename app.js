@@ -4,9 +4,10 @@ const starterActivities = [
   { title: "À la rencontre des animaux", date: "2026-10-24", place: "Parc zoologique de Paris", spots: 15, category: "Nature" }
 ];
 
-const getActivities = () => JSON.parse(localStorage.getItem("petits-explorateurs-activities")) || starterActivities;
-const saveActivities = (activities) => localStorage.setItem("petits-explorateurs-activities", JSON.stringify(activities));
+let currentActivities = JSON.parse(localStorage.getItem("petits-explorateurs-activities")) || starterActivities;
+const getActivities = () => currentActivities;
 const formatDate = (date) => new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00`));
+const escapeHtml = (value) => String(value).replace(/[&<>"]/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
 
 async function saveRegistration(data) {
   const config = window.SUPABASE_CONFIG;
@@ -55,29 +56,51 @@ function renderActivities() {
   const activities = getActivities();
   const list = document.querySelector("#activity-list");
   document.querySelector("#empty-state").hidden = activities.length !== 0;
-  list.innerHTML = activities.map(activity => `
+  list.innerHTML = activities.map((activity, index) => `
     <article class="activity-card">
-      <span class="tag">${activity.category}</span>
-      <h3>${activity.title}</h3>
-      <div class="meta"><strong>${formatDate(activity.date)}</strong><br>${activity.place} · ${activity.spots} places disponibles</div>
+      <span class="tag">${escapeHtml(activity.category)}</span>
+      <h3>${escapeHtml(activity.title)}</h3>
+      <div class="meta"><strong>${formatDate(activity.date)}</strong><br>${escapeHtml(activity.place)} · ${activity.spots} places disponibles</div>
+      <button class="activity-registration-button" type="button" data-register-activity="${index}">Inscrire un enfant <span>→</span></button>
     </article>`).join("");
+}
+
+async function loadPublishedActivities() {
+  const config = window.SUPABASE_CONFIG;
+  if (!config?.url || !config?.anonKey) return;
+  try {
+    const response = await fetch(`${config.url.replace(/\/$/, "")}/rest/v1/activities?select=title,date,place,spots,category&published=eq.true&order=date.asc`, { headers: { apikey: config.anonKey, Authorization: `Bearer ${config.anonKey}` } });
+    if (!response.ok) throw new Error("Chargement impossible");
+    const activities = await response.json();
+    if (Array.isArray(activities)) {
+      currentActivities = activities;
+      localStorage.setItem("petits-explorateurs-activities", JSON.stringify(activities));
+      renderActivities();
+    }
+  } catch { /* Les activités locales restent affichées tant que Supabase n'est pas configuré. */ }
 }
 
 const modal = document.querySelector("#form-modal");
 const modalContent = document.querySelector("#modal-content");
-document.querySelectorAll("[data-open-modal]").forEach(button => button.addEventListener("click", () => {
-  const type = button.dataset.openModal;
+function openFormModal(type, selectedActivity = "") {
   modalContent.innerHTML = type === "don" ? `
     <p class="eyebrow">Merci pour votre soutien</p><h2>Faire un don</h2>
     <p>Votre don permettra de financer des sorties, transports et goûters pour les enfants. Le paiement s’effectue dans l’environnement de test Stripe : aucun montant réel ne sera prélevé.</p>
     <form id="don-form"><label>Votre prénom<input required name="name" autocomplete="given-name" /></label><label>Votre adresse e-mail<input required type="email" name="email" autocomplete="email" /></label><label>Montant souhaité (€)<input required type="number" min="1" step="0.01" name="amount" value="20" /></label><button class="button">Tester le paiement sécurisé <span>→</span></button></form>` : `
     <p class="eyebrow">Participer</p><h2>Inscrire un enfant</h2>
     <p>Nous vous recontacterons pour vérifier les modalités et finaliser l’inscription.</p>
-    <form id="registration-form"><label>Nom du responsable<input required name="guardian" /></label><label>Adresse e-mail<input required type="email" name="email" /></label><label>Prénom de l’enfant<input required name="child" /></label><label>Activité souhaitée<select name="activity">${getActivities().map(a => `<option>${a.title}</option>`).join("")}</select></label><label class="privacy-check"><input required type="checkbox" name="privacy" /> <span>J’ai lu la <a href="confidentialite.html">politique de confidentialité</a> et j’accepte que ces données soient utilisées pour traiter cette demande.</span></label><button class="button">Envoyer la demande <span>→</span></button></form>`;
+    <form id="registration-form"><label>Nom du responsable<input required name="guardian" /></label><label>Adresse e-mail<input required type="email" name="email" /></label><label>Prénom de l’enfant<input required name="child" /></label><label>Activité souhaitée<select name="activity">${getActivities().map(a => `<option${a.title === selectedActivity ? " selected" : ""}>${a.title}</option>`).join("")}</select></label><label class="privacy-check"><input required type="checkbox" name="privacy" /> <span>J’ai lu la <a href="confidentialite.html">politique de confidentialité</a> et j’accepte que ces données soient utilisées pour traiter cette demande.</span></label><button class="button">Envoyer la demande <span>→</span></button></form>`;
   modal.showModal();
-}));
+}
 
-document.querySelector(".admin-toggle").addEventListener("click", () => document.querySelector("#admin-modal").showModal());
+document.querySelectorAll("[data-open-modal]").forEach(button => button.addEventListener("click", () => openFormModal(button.dataset.openModal)));
+document.querySelector("#activity-list").addEventListener("click", event => {
+  const button = event.target.closest("[data-register-activity]");
+  if (!button) return;
+  const activity = getActivities()[Number(button.dataset.registerActivity)];
+  if (activity) openFormModal("inscription", activity.title);
+});
+
 document.querySelectorAll(".close").forEach(button => button.addEventListener("click", () => button.closest("dialog").close()));
 document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); }));
 
@@ -85,17 +108,10 @@ document.addEventListener("submit", async event => {
   if (event.target.id === "contact-form") {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
-    const subject = encodeURIComponent(`Message depuis Les Jeunes Explorateurs — ${data.name}`);
+    const subject = encodeURIComponent(`Message depuis Les Jeunes Aventuriers — ${data.name}`);
     const body = encodeURIComponent(`Nom : ${data.name}\nE-mail : ${data.email}\n\nMessage :\n${data.message}`);
     window.location.href = `mailto:infos@lesjeunesexplorateurs.fr?subject=${subject}&body=${body}`;
     return;
-  }
-  if (event.target.id === "activity-form") {
-    event.preventDefault();
-    const data = Object.fromEntries(new FormData(event.target));
-    data.spots = Number(data.spots);
-    saveActivities([...getActivities(), data]);
-    renderActivities(); event.target.reset(); event.target.closest("dialog").close();
   }
   if (["don-form", "registration-form"].includes(event.target.id)) {
     event.preventDefault();
@@ -117,8 +133,9 @@ document.addEventListener("submit", async event => {
 });
 
 renderActivities();
+loadPublishedActivities();
 
 if (new URLSearchParams(window.location.search).get("inscription") === "1") {
   window.history.replaceState({}, "", "index.html#agir");
-  document.querySelector('[data-open-modal="inscription"]').click();
+  openFormModal("inscription");
 }

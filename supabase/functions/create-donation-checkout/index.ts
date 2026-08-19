@@ -13,7 +13,7 @@ Deno.serve(async (request) => {
     if (!siteUrl) throw new Error("SITE_URL n’est pas défini.");
     const session = await stripe.checkout.sessions.create({
       mode: "payment", customer_email: email, billing_address_collection: "auto",
-      line_items: [{ price_data: { currency: "eur", tax_behavior: "exclusive", product_data: { name: "Don de test - Les Jeunes Explorateurs", tax_code: "txcd_10000000" }, unit_amount: cents }, quantity: 1 }],
+      line_items: [{ price_data: { currency: "eur", tax_behavior: "exclusive", product_data: { name: "Don de test - Les Jeunes Aventuriers", tax_code: "txcd_10000000" }, unit_amount: cents }, quantity: 1 }],
       metadata: { donor_name: String(name).slice(0, 120), document_type: "test_confirmation" },
       success_url: `${siteUrl}/merci-don.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/don-annule.html`

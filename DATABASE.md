@@ -27,3 +27,7 @@ with check (true);
 Les visiteurs ne peuvent insérer que des demandes : ils ne peuvent ni lire, ni modifier, ni supprimer les données des autres personnes. Pour consulter les inscriptions, ouvrez **Table Editor > registrations** dans votre tableau de bord Supabase.
 
 Les données concernent des enfants : ne collectez que le minimum nécessaire et prévoyez une mention d’information/confidentialité avant la mise en ligne publique.
+
+## Activités et accès administrateur
+
+Exécutez également `supabase/migrations/003_activities_admin.sql` dans le SQL Editor. Puis, dans **Authentication > Users**, créez manuellement l’utilisateur `infos@lesjeunesexplorateurs.fr` avec un mot de passe fort. Désactivez les inscriptions publiques dans **Authentication > Providers > Email** : seul cet utilisateur pourra alors ajouter des activités depuis `admin.html`.
