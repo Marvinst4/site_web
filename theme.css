@@ -1,0 +1,19 @@
+html { color-scheme: light; }
+html[data-theme="dark"] { color-scheme: dark; }
+.theme-toggle { width:42px; height:42px; border:1px solid #dce1d6; border-radius:50%; display:grid; place-items:center; padding:0; background:#fffaf0; color:#173a38; font-size:18px; cursor:pointer; transition:transform .2s ease, background .2s ease; }
+.theme-toggle:hover { transform:translateY(-2px); background:#f5c843; }
+.theme-toggle.floating { position:fixed; z-index:9996; right:18px; top:18px; box-shadow:0 4px 15px rgba(0,0,0,.14); }
+html[data-theme="dark"] body { background:#102724; color:#eaf4ee; }
+html[data-theme="dark"] .site-header, html[data-theme="dark"] footer, html[data-theme="dark"] .contact { background:#102724; }
+html[data-theme="dark"] .hero, html[data-theme="dark"] .story-hero, html[data-theme="dark"] .payment-result { background:#183833; }
+html[data-theme="dark"] .activities, html[data-theme="dark"] .founders, html[data-theme="dark"] .admin-card { background:#1b413a; }
+html[data-theme="dark"] .activity-card, html[data-theme="dark"] .contact-form, html[data-theme="dark"] dialog { background:#214a42; color:#eaf4ee; }
+html[data-theme="dark"] .mission-text, html[data-theme="dark"] .contact-copy, html[data-theme="dark"] .privacy-page section p, html[data-theme="dark"] .privacy-intro, html[data-theme="dark"] .payment-result p:not(.eyebrow), html[data-theme="dark"] .admin-card>p, html[data-theme="dark"] .portrait-text>p:last-child { color:#c5d8d0; }
+html[data-theme="dark"] footer p, html[data-theme="dark"] .updated, html[data-theme="dark"] .form-note { color:#a9c2b8; }
+html[data-theme="dark"] .text-link, html[data-theme="dark"] .site-header nav a, html[data-theme="dark"] .footer-link, html[data-theme="dark"] .close { color:#eaf4ee; }
+html[data-theme="dark"] .theme-toggle { background:#214a42; border-color:#497067; color:#fff4be; }
+html[data-theme="dark"] .theme-toggle:hover { background:#f5c843; color:#173a38; }
+html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { background:#102724; color:#eaf4ee; border-color:#55786e; }
+html[data-theme="dark"] .privacy-page section, html[data-theme="dark"] .meta { border-color:#45665e; }
+html[data-theme="dark"] .mobile-menu-toggle, html[data-theme="dark"] .site-header.mobile-menu-open nav { background:#214a42; }
+@media (prefers-reduced-motion: reduce) { .theme-toggle { transition:none; } }
