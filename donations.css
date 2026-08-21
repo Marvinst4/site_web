@@ -1,0 +1,62 @@
+.donations-hero {
+  min-height: 510px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: 88px 9vw;
+  background: #f4f0e6;
+}
+
+.donations-hero h1,
+.donations-heading h2,
+.commitment-copy h2,
+.donations-cta h2 {
+  margin: 0;
+  font-family: Fraunces, serif;
+  letter-spacing: -.05em;
+  line-height: 1.03;
+}
+
+.donations-hero h1 { max-width: 670px; font-size: clamp(45px, 5.5vw, 72px); }
+.donations-hero > div > p:not(.eyebrow) { max-width: 570px; margin: 24px 0 30px; color: #496461; font-size: 18px; line-height: 1.6; }
+
+.donations-heading { display: grid; grid-template-columns: .95fr 1fr; column-gap: 9vw; align-items: end; margin-bottom: 45px; }
+.donations-heading .eyebrow, .donations-heading h2 { grid-column: 1; }
+.donations-heading > p:last-child { grid-column: 2; grid-row: 1 / span 2; margin: 0; color: #496461; font-size: 17px; line-height: 1.65; }
+.donations-heading h2, .commitment-copy h2 { font-size: clamp(38px, 4.2vw, 55px); }
+
+.donations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
+.donation-use { min-height: 245px; padding: 26px; border: 1px solid #dce1d6; border-radius: 17px; background: #fffdf7; }
+.use-icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: #edf4ed; font-size: 23px; }
+.donation-use h3 { margin: 28px 0 11px; font: 700 25px/1.1 Fraunces, serif; letter-spacing: -.03em; }
+.donation-use p { margin: 0; color: #496461; font-size: 14px; line-height: 1.6; }
+
+.donations-commitment { display: grid; grid-template-columns: 1fr 1fr; gap: 10vw; align-items: start; background: #edf4ed; }
+.commitment-copy > p:not(.eyebrow) { margin: 25px 0 0; color: #496461; font-size: 17px; line-height: 1.65; }
+.commitment-points { display: grid; gap: 0; border-top: 1px solid #c8d9cf; }
+.commitment-points div { display: grid; grid-template-columns: 180px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid #c8d9cf; }
+.commitment-points strong { font-size: 14px; }
+.commitment-points span { color: #496461; font-size: 14px; line-height: 1.5; }
+
+.donations-cta { padding: 92px 9vw; background: #eb6d56; color: #fffaf0; text-align: center; }
+.donations-cta .eyebrow { color: #fff0a6; }
+.donations-cta h2 { max-width: 720px; margin: 0 auto; font-size: clamp(39px, 4.5vw, 59px); }
+.donations-cta > div { display: flex; justify-content: center; align-items: center; gap: 29px; margin-top: 35px; }
+.donations-cta .text-link { color: #fffaf0; }
+
+@media (max-width: 900px) {
+  .donations-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .donations-hero, .donations-commitment { grid-template-columns: 1fr; gap: 42px; }
+  .donations-hero { min-height: auto; padding: 62px 7vw 70px; }
+  .donations-heading { display: block; margin-bottom: 31px; }
+  .donations-heading > p:last-child { margin-top: 24px; font-size: 16px; }
+  .donations-grid { grid-template-columns: 1fr; gap: 12px; }
+  .donation-use { min-height: 0; }
+  .donations-commitment { padding: 70px 7vw; }
+  .commitment-points div { grid-template-columns: 1fr; gap: 8px; }
+  .donations-cta { padding: 72px 7vw; }
+  .donations-cta > div { flex-direction: column; gap: 20px; }
+}

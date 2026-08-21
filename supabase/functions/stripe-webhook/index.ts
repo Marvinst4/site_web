@@ -11,14 +11,14 @@ async function createPdf(number: string, donorName: string, amount: number) {
   const pdf = await PDFDocument.create(); const page = pdf.addPage([595, 842]); const font = await pdf.embedFont(StandardFonts.Helvetica); const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
   const write = (value: string, x: number, y: number, size = 12, strong = false, color = rgb(0.09, 0.23, 0.22)) => page.drawText(value, { x, y, size, font: strong ? bold : font, color });
   page.drawRectangle({ x: 0, y: 780, width: 595, height: 62, color: rgb(0.09, 0.23, 0.22) });
-  write("Les Jeunes Aventuriers", 45, 805, 18, true, rgb(1, 0.98, 0.94)); write("CONFIRMATION DE DON - TEST", 45, 745, 21, true); write("Document de demonstration - sans valeur fiscale", 45, 720, 11, false, rgb(0.84, 0.36, 0.28));
+  write("Les Jeunes Explorateurs", 45, 805, 18, true, rgb(1, 0.98, 0.94)); write("CONFIRMATION DE DON - TEST", 45, 745, 21, true); write("Document de demonstration - sans valeur fiscale", 45, 720, 11, false, rgb(0.84, 0.36, 0.28));
   write(`Reference : ${number}`, 45, 665, 12, true); write(`Date : ${new Date().toLocaleDateString("fr-FR")}`, 45, 640); write("Donateur", 45, 585, 13, true); write(donorName, 45, 560); write("Montant du don", 365, 585, 13, true); write(euro(amount), 365, 560, 20, true, rgb(0.84, 0.36, 0.28));
   page.drawLine({ start: { x: 45, y: 520 }, end: { x: 550, y: 520 }, thickness: 1, color: rgb(0.85, 0.88, 0.82) }); write("Merci de soutenir l’accès des enfants à la culture, aux loisirs et aux découvertes.", 45, 480, 12); write("Ce document est genere en environnement Stripe test. Il ne constitue pas un recu fiscal.", 45, 82, 9, false, rgb(0.35, 0.44, 0.42));
   return pdf.save();
 }
 
 async function sendEmail(to: string, pdf: Uint8Array, number: string) {
-  const response = await fetch("https://api.resend.com/emails", { method: "POST", headers: { "Authorization": `Bearer ${Deno.env.get("RESEND_API_KEY")}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: Deno.env.get("EMAIL_FROM"), to: [to], bcc: ["infos@lesjeunesexplorateurs.fr"], subject: "Votre confirmation de don - Les Jeunes Aventuriers", html: `<p>Merci pour votre soutien.</p><p>Votre confirmation de don de test, sans valeur fiscale, est jointe à cet e-mail.</p><p>Référence : <strong>${number}</strong></p>`, attachments: [{ filename: `${number}.pdf`, content: asBase64(pdf) }] }) });
+  const response = await fetch("https://api.resend.com/emails", { method: "POST", headers: { "Authorization": `Bearer ${Deno.env.get("RESEND_API_KEY")}`, "Content-Type": "application/json" }, body: JSON.stringify({ from: Deno.env.get("EMAIL_FROM"), to: [to], bcc: ["infos@lesjeunesexplorateurs.fr"], subject: "Votre confirmation de don - Les Jeunes Explorateurs", html: `<p>Merci pour votre soutien.</p><p>Votre confirmation de don de test, sans valeur fiscale, est jointe à cet e-mail.</p><p>Référence : <strong>${number}</strong></p>`, attachments: [{ filename: `${number}.pdf`, content: asBase64(pdf) }] }) });
   if (!response.ok) throw new Error(`Envoi e-mail impossible : ${await response.text()}`);
 }
 
