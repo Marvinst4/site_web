@@ -18,6 +18,15 @@ html[data-theme="dark"] .donation-use { background:#214a42; border-color:#45665e
 html[data-theme="dark"] .use-icon { background:#183833; }
 html[data-theme="dark"] .donations-commitment { background:#1b413a; }
 html[data-theme="dark"] .commitment-points, html[data-theme="dark"] .commitment-points div { border-color:#45665e; }
+html[data-theme="dark"] .admin-form-section, html[data-theme="dark"] .admin-activities { border-color:#45665e; }
+html[data-theme="dark"] .admin-checkbox, html[data-theme="dark"] .admin-activity-item p, html[data-theme="dark"] .admin-empty-state { color:#c5d8d0; }
+html[data-theme="dark"] .admin-activity-item { background:#214a42; border-color:#45665e; }
+html[data-theme="dark"] .admin-activity-topline { color:#a9c2b8; }
+html[data-theme="dark"] .activities-count { background:#29584d; color:#d9eee2; }
+html[data-theme="dark"] .admin-action-button { border-color:#55786e; color:#eaf4ee; }
+html[data-theme="dark"] .admin-action-button:hover { background:#315f55; }
+html[data-theme="dark"] .admin-delete-button { border-color:#b86b5e; color:#ffb8ac; }
+html[data-theme="dark"] .admin-delete-button:hover { background:#603c36; }
 html[data-theme="dark"] .access-intro p:last-child, html[data-theme="dark"] .access-action p { color:#c5d8d0; }
 html[data-theme="dark"] .data-card { background:#214a42; border-color:#45665e; }
 html[data-theme="dark"] .data-card-main { background:#173a38; border-color:#497067; }

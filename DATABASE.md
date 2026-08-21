@@ -30,4 +30,4 @@ Les données concernent des enfants : ne collectez que le minimum nécessaire et
 
 ## Activités et accès administrateur
 
-Exécutez également `supabase/migrations/003_activities_admin.sql` dans le SQL Editor. Puis, dans **Authentication > Users**, créez manuellement l’utilisateur `infos@lesjeunesexplorateurs.fr` avec un mot de passe fort. Désactivez les inscriptions publiques dans **Authentication > Providers > Email** : seul cet utilisateur pourra alors ajouter des activités depuis `admin.html`.
+Exécutez également `supabase/migrations/003_activities_admin.sql`, puis `supabase/migrations/004_activities_admin_crud.sql` et `supabase/migrations/005_optimize_activities_admin_rls.sql`, dans le SQL Editor. Puis, dans **Authentication > Users**, créez manuellement l’utilisateur `infos@lesjeunesexplorateurs.fr` avec un mot de passe fort. Désactivez les inscriptions publiques dans **Authentication > Providers > Email** : seul cet utilisateur pourra gérer les activités depuis `admin.html`.

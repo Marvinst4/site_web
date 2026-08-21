@@ -24,10 +24,19 @@
         <p id="login-message" class="admin-message" aria-live="polite"></p>
       </section>
       <section id="dashboard-panel" class="admin-card" hidden>
-        <div class="admin-heading"><div><p class="eyebrow">Espace privé</p><h1>Ajouter une activité</h1></div><button id="logout-button" class="text-link" type="button">Se déconnecter</button></div>
-        <p>La sortie sera visible immédiatement dans la liste publique des activités.</p>
-        <form id="activity-admin-form"><label>Titre<input name="title" required maxlength="160" placeholder="Ex. Journée au musée" /></label><label>Date<input name="date" type="date" required /></label><label>Lieu<input name="place" required maxlength="160" placeholder="Ex. Musée d'Orsay" /></label><label>Places disponibles<input name="spots" type="number" min="1" max="500" value="20" required /></label><label>Catégorie<select name="category"><option>Culture</option><option>Loisirs</option><option>Nature</option><option>Sport</option></select></label><button class="button" type="submit">Publier l’activité <span>→</span></button></form>
-        <p id="activity-message" class="admin-message" aria-live="polite"></p>
+        <div class="admin-heading"><div><p class="eyebrow">Espace privé</p><h1>Gérer les activités</h1></div><button id="logout-button" class="text-link" type="button">Se déconnecter</button></div>
+        <p>Ajoutez, modifiez ou retirez les sorties proposées sur le site. Les activités non publiées restent visibles uniquement ici.</p>
+
+        <section class="admin-form-section" aria-labelledby="activity-form-title">
+          <div class="admin-section-heading"><h2 id="activity-form-title">Ajouter une activité</h2><button id="cancel-edit-button" class="text-link" type="button" hidden>Annuler la modification</button></div>
+          <form id="activity-admin-form"><label>Titre<input name="title" required maxlength="160" placeholder="Ex. Journée au musée" /></label><label>Date<input name="date" type="date" required /></label><label>Lieu<input name="place" required maxlength="160" placeholder="Ex. Musée d'Orsay" /></label><label>Places disponibles<input name="spots" type="number" min="1" max="500" value="20" required /></label><label>Catégorie<select name="category"><option>Culture</option><option>Loisirs</option><option>Nature</option><option>Sport</option></select></label><label class="admin-checkbox"><input name="published" type="checkbox" checked /> <span>Rendre cette activité visible sur le site</span></label><button id="activity-submit-button" class="button" type="submit">Publier l’activité <span>→</span></button></form>
+          <p id="activity-message" class="admin-message" aria-live="polite"></p>
+        </section>
+
+        <section class="admin-activities" aria-labelledby="admin-activities-title">
+          <div class="admin-section-heading"><h2 id="admin-activities-title">Toutes les activités</h2><span id="activities-count" class="activities-count">0 activité</span></div>
+          <div id="admin-activity-list" class="admin-activity-list" aria-live="polite"></div>
+        </section>
       </section>
     </main>
     <script src="supabase-config.js"></script>
