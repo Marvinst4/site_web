@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="page-transitions.css" />
     <script src="page-transitions.js" defer></script>
+    <link rel="stylesheet" href="splash.css" />
+    <script src="splash.js" defer></script>
     <link rel="stylesheet" href="theme.css" />
     <script src="theme.js" defer></script>
     <link rel="stylesheet" href="logo.css" />
@@ -24,13 +26,20 @@
     <link rel="stylesheet" href="access-to-leisure.css" />
   </head>
   <body>
+    <div class="site-splash" aria-hidden="true">
+      <div class="site-splash__content">
+        <img class="site-splash__logo" src="images/logo-petits-explorateurs.png" alt="" />
+        <p class="site-splash__text">Les Jeunes Explorateurs</p>
+      </div>
+    </div>
+    <noscript><style>.site-splash { display: none; }</style></noscript>
     <header class="site-header">
       <a class="brand" href="#accueil" aria-label="Les Jeunes Explorateurs, accueil">
         <img class="brand-logo" src="images/logo-petits-explorateurs.png" alt="Logo Les Jeunes Aventuriers" />
         <span>Les Jeunes<br /><strong>Explorateurs</strong></span>
       </a>
       <nav aria-label="Navigation principale">
-        <a href="#mission">Notre mission</a>
+        <a href="#accueil">Accueil</a>
         <a href="#activites">Les activités</a>
         <a href="vos-dons.html">Vos dons</a>
         <a href="benevole.html">Bénévole</a>
