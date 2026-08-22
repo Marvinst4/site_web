@@ -27,6 +27,14 @@ html[data-theme="dark"] .admin-action-button { border-color:#55786e; color:#eaf4
 html[data-theme="dark"] .admin-action-button:hover { background:#315f55; }
 html[data-theme="dark"] .admin-delete-button { border-color:#b86b5e; color:#ffb8ac; }
 html[data-theme="dark"] .admin-delete-button:hover { background:#603c36; }
+html[data-theme="dark"] .volunteer-hero { background:#183833; }
+html[data-theme="dark"] .volunteer-hero p:not(.eyebrow), html[data-theme="dark"] .volunteer-heading > p:last-child, html[data-theme="dark"] .volunteer-form-intro > p:not(.eyebrow), html[data-theme="dark"] .role-card p { color:#c5d8d0; }
+html[data-theme="dark"] .role-card, html[data-theme="dark"] .volunteer-form { background:#214a42; border-color:#45665e; }
+html[data-theme="dark"] .role-card>span { background:#183833; }
+html[data-theme="dark"] .volunteer-form-section { background:#1b413a; }
+html[data-theme="dark"] .volunteer-form textarea { background:#102724; border-color:#55786e; color:#eaf4ee; }
+html[data-theme="dark"] .optional { color:#a9c2b8; }
+html[data-theme="dark"] .volunteer-form .form-note.success { color:#8ee0b4; }
 html[data-theme="dark"] .access-intro p:last-child, html[data-theme="dark"] .access-action p { color:#c5d8d0; }
 html[data-theme="dark"] .data-card { background:#214a42; border-color:#45665e; }
 html[data-theme="dark"] .data-card-main { background:#173a38; border-color:#497067; }

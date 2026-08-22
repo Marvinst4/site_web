@@ -31,3 +31,11 @@ Les données concernent des enfants : ne collectez que le minimum nécessaire et
 ## Activités et accès administrateur
 
 Exécutez également `supabase/migrations/003_activities_admin.sql`, puis `supabase/migrations/004_activities_admin_crud.sql` et `supabase/migrations/005_optimize_activities_admin_rls.sql`, dans le SQL Editor. Puis, dans **Authentication > Users**, créez manuellement l’utilisateur `infos@lesjeunesexplorateurs.fr` avec un mot de passe fort. Désactivez les inscriptions publiques dans **Authentication > Providers > Email** : seul cet utilisateur pourra gérer les activités depuis `admin.html`.
+
+## Verrouillage des dons
+
+Exécutez enfin `supabase/migrations/006_lock_down_donations_and_rls_function.sql`. Elle bloque tout accès navigateur à la table `donations` et à la fonction technique `rls_auto_enable`. Seule la fonction serveur Stripe, qui utilise la clé `service_role` stockée dans les secrets Supabase, conserve l’accès aux confirmations de don.
+
+## Candidatures bénévoles
+
+Exécutez `supabase/migrations/007_volunteer_applications.sql` pour enregistrer les candidatures envoyées depuis `benevole.html`. Les visiteurs peuvent uniquement créer leur propre demande : aucune candidature n’est lisible depuis le site. Pour les consulter, ouvrez **Table Editor > volunteer_applications** dans Supabase.

@@ -4,7 +4,10 @@ import { PDFDocument, StandardFonts, rgb } from "npm:pdf-lib@1.17.1";
 
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, { apiVersion: "2025-03-31.basil" });
 const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-const euro = (cents: number) => new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(cents / 100);
+// Les polices PDF standard ne prennent pas en charge l'espace fine insécable
+// ajouté par Intl pour les montants français (ex. « 10 € »). Un formatage
+// explicite évite donc que la génération de la confirmation échoue.
+const euro = (cents: number) => `${(cents / 100).toFixed(2).replace(".", ",")} EUR`;
 const asBase64 = (bytes: Uint8Array) => btoa(Array.from(bytes, byte => String.fromCharCode(byte)).join(""));
 
 async function createPdf(number: string, donorName: string, amount: number) {
@@ -30,8 +33,16 @@ Deno.serve(async (request) => {
     if (event.type !== "checkout.session.completed") return Response.json({ received: true });
     const session = event.data.object as Stripe.Checkout.Session;
     if (session.payment_status !== "paid") return Response.json({ received: true });
-    const existing = await admin.from("donations").select("id").eq("stripe_checkout_session_id", session.id).maybeSingle();
-    if (existing.data) return Response.json({ received: true });
+    const existing = await admin.from("donations").select("confirmation_number, donor_email, receipt_path").eq("stripe_checkout_session_id", session.id).maybeSingle();
+    // Un premier essai peut avoir créé le PDF et le don, puis échoué uniquement
+    // lors de l'envoi e-mail (p. ex. domaine Resend en attente de validation).
+    // Lors d'un renvoi Stripe, on réutilise alors le PDF déjà stocké.
+    if (existing.data) {
+      const receipt = await admin.storage.from("donation-confirmations").download(existing.data.receipt_path);
+      if (receipt.error) throw receipt.error;
+      await sendEmail(existing.data.donor_email, new Uint8Array(await receipt.data.arrayBuffer()), existing.data.confirmation_number);
+      return Response.json({ received: true });
+    }
     const number = `TEST-${new Date().getFullYear()}-${session.id.slice(-8).toUpperCase()}`; const amount = session.amount_total || 0; const donorName = session.metadata?.donor_name || "Donateur"; const donorEmail = session.customer_details?.email || session.customer_email;
     if (!donorEmail) throw new Error("E-mail donateur manquant.");
     const pdf = await createPdf(number, donorName, amount); const receiptPath = `${number}.pdf`;
