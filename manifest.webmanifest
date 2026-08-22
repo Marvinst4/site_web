@@ -1,0 +1,19 @@
+{
+  "name": "Les Jeunes Explorateurs",
+  "short_name": "Explorateurs",
+  "description": "Les Jeunes Explorateurs rend la culture, les loisirs et les sorties accessibles aux enfants.",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#173a38",
+  "icons": [
+    {
+      "src": "images/logo-petits-explorateurs.png",
+      "sizes": "2000x2000",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
