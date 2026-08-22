@@ -1,0 +1,69 @@
+@keyframes page-arrival {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.992);
+    filter: blur(5px);
+  }
+
+  68% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes page-departure {
+  to {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.996);
+    filter: blur(4px);
+  }
+}
+
+@keyframes explorer-glow {
+  0%, 100% {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+    opacity: 0.22;
+  }
+
+  50% {
+    transform: translate3d(5%, 3%, 0) scale(1.08);
+    opacity: 0.42;
+  }
+}
+
+body {
+  animation: page-arrival 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+body::before {
+  position: fixed;
+  z-index: -1;
+  inset: auto -18vw -26vw auto;
+  width: min(48vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 179, 64, 0.18), rgba(242, 179, 64, 0) 68%);
+  content: "";
+  pointer-events: none;
+  animation: explorer-glow 10s ease-in-out infinite;
+}
+
+body.is-leaving {
+  pointer-events: none;
+  animation: page-departure 300ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body.is-leaving,
+  body::before {
+    animation: none;
+  }
+}
