@@ -4,4 +4,7 @@ textarea { display:block; width:100%; margin-top:6px; border:1px solid #cbd7cd; 
 .email-link { display:inline-block; color:#eb6d56; font-weight:700; font-size:18px; margin-top:8px; }
 .contact-form { background:#edf4ed; border-radius:17px; padding:24px; }
 .form-note { font-size:12px; color:#58706c; line-height:1.45; margin:13px 0 0; }
+.contact-honeypot { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.contact-form .privacy-check { margin-top:16px; }
+.contact-form .button:disabled { cursor:wait; opacity:.7; }
 @media (max-width:720px) { .contact { grid-template-columns:1fr; gap:35px; } }

@@ -52,6 +52,18 @@ async function beginDonationCheckout(data) {
   window.location.assign(result.url);
 }
 
+async function sendContactMessage(data) {
+  const config = window.SUPABASE_CONFIG;
+  if (!config?.url || !config?.anonKey) throw new Error("Le formulaire de contact n’est pas encore configuré.");
+  const response = await fetch(`${config.url.replace(/\/$/, "")}/functions/v1/contact-message`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "apikey": config.anonKey, "Authorization": `Bearer ${config.anonKey}` },
+    body: JSON.stringify({ name: data.name, email: data.email, subject: data.subject, message: data.message, company: data.company })
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result.error || "Impossible d’envoyer votre message pour le moment.");
+}
+
 function renderActivities() {
   const activities = getActivities();
   const list = document.querySelector("#activity-list");
@@ -108,9 +120,20 @@ document.addEventListener("submit", async event => {
   if (event.target.id === "contact-form") {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
-    const subject = encodeURIComponent(`Message depuis Les Jeunes Explorateurs — ${data.name}`);
-    const body = encodeURIComponent(`Nom : ${data.name}\nE-mail : ${data.email}\n\nMessage :\n${data.message}`);
-    window.location.href = `mailto:infos@lesjeunesexplorateurs.fr?subject=${subject}&body=${body}`;
+    const form = event.target;
+    const button = form.querySelector("button[type=submit]");
+    const status = document.querySelector("#contact-form-status");
+    button.disabled = true;
+    status.textContent = "Envoi de votre message…";
+    try {
+      await sendContactMessage(data);
+      form.reset();
+      status.textContent = "Merci, votre message a bien été envoyé. Nous vous répondrons dès que possible.";
+    } catch (error) {
+      status.textContent = error.message || "Une erreur est survenue. Veuillez réessayer plus tard.";
+    } finally {
+      button.disabled = false;
+    }
     return;
   }
   if (["don-form", "registration-form"].includes(event.target.id)) {

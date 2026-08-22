@@ -123,11 +123,14 @@
           <a class="email-link" href="mailto:infos@lesjeunesexplorateurs.fr">infos@lesjeunesexplorateurs.fr</a>
         </div>
         <form id="contact-form" class="contact-form">
-          <label>Votre nom<input required name="name" autocomplete="name" /></label>
-          <label>Votre adresse e-mail<input required type="email" name="email" autocomplete="email" /></label>
-          <label>Votre message<textarea required name="message" rows="5" placeholder="Bonjour, je souhaiterais…"></textarea></label>
+          <label>Votre nom<input required name="name" autocomplete="name" minlength="2" maxlength="120" /></label>
+          <label>Votre adresse e-mail<input required type="email" name="email" autocomplete="email" maxlength="254" /></label>
+          <label>Objet<input required name="subject" maxlength="150" placeholder="Partenariat, bénévolat, question…" /></label>
+          <label>Votre message<textarea required name="message" rows="5" minlength="10" maxlength="4000" placeholder="Bonjour, je souhaiterais…"></textarea></label>
+          <label class="contact-honeypot" aria-hidden="true">Ne pas remplir ce champ<input name="company" tabindex="-1" autocomplete="off" /></label>
+          <label class="privacy-check"><input required type="checkbox" name="privacy" /> <span>J’ai lu la <a href="confidentialite.html">politique de confidentialité</a> et j’accepte que ces informations soient utilisées pour répondre à ma demande.</span></label>
           <button class="button" type="submit">Envoyer mon message <span>→</span></button>
-          <p class="form-note">Votre application de messagerie s’ouvrira avec le message prêt à être envoyé.</p>
+          <p class="form-note" id="contact-form-status" aria-live="polite">Votre message sera envoyé directement à notre équipe.</p>
         </form>
       </section>
     </main>
