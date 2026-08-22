@@ -142,7 +142,7 @@ document.addEventListener("submit", async event => {
     if (event.target.id === "don-form") {
       modalContent.innerHTML = `<p class="eyebrow">Paiement test</p><h2>Redirection sécurisée…</h2><p>Vous allez être redirigé vers Stripe. Utilisez une carte de test : 4242 4242 4242 4242, une date future et un CVC de trois chiffres.</p>`;
       try { await beginDonationCheckout(data); }
-      catch (error) { modalContent.innerHTML = `<p class="eyebrow">Configuration requise</p><h2>Le paiement test n’est pas encore disponible.</h2><p>${error.message} Consultez STRIPE_SETUP.md pour déployer les fonctions sécurisées.</p><button class="button" onclick="document.querySelector('#form-modal').close()">Fermer</button>`; }
+      catch (error) { modalContent.innerHTML = `<p class="eyebrow">Configuration requise</p><h2>Le paiement test n’est pas encore disponible.</h2><p>${error.message} Consultez docs/STRIPE_SETUP.md pour déployer les fonctions sécurisées.</p><button class="button" onclick="document.querySelector('#form-modal').close()">Fermer</button>`; }
       return;
     }
     try {
