@@ -11,6 +11,10 @@ html[data-theme="dark"] .brand { color:#eaf4ee; }
 html[data-theme="dark"] .lead { color:#c5d8d0; }
 html[data-theme="dark"] .activities, html[data-theme="dark"] .founders, html[data-theme="dark"] .admin-card { background:#1b413a; }
 html[data-theme="dark"] .activity-card, html[data-theme="dark"] .contact-form, html[data-theme="dark"] dialog { background:#214a42; color:#eaf4ee; }
+html[data-theme="dark"] .story-hero > p:last-child, html[data-theme="dark"] .founders-intro > p:last-child { color:#c5d8d0; }
+html[data-theme="dark"] .story-hero .eyebrow, html[data-theme="dark"] .founders .eyebrow, html[data-theme="dark"] .portrait-text .eyebrow { color:#ffae9c; }
+html[data-theme="dark"] .portrait-card { background:#214a42; border:1px solid #45665e; color:#eaf4ee; }
+html[data-theme="dark"] .portrait-text h2 { color:#eaf4ee; }
 html[data-theme="dark"] .access-to-leisure { background:#102724; }
 html[data-theme="dark"] .donations-hero { background:#183833; }
 html[data-theme="dark"] .donations-hero > div > p:not(.eyebrow), html[data-theme="dark"] .donations-heading > p:last-child, html[data-theme="dark"] .commitment-copy > p:not(.eyebrow), html[data-theme="dark"] .donation-use p, html[data-theme="dark"] .commitment-points span { color:#c5d8d0; }
