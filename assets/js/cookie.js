@@ -1,7 +1,11 @@
 (() => {
   const key = "petits-explorateurs-cookie-choice";
   const stylesheet = document.createElement("link");
-  stylesheet.rel = "stylesheet"; stylesheet.href = "cookie.css"; document.head.append(stylesheet);
+  stylesheet.rel = "stylesheet";
+  stylesheet.href = document.currentScript?.src
+    ? new URL("../css/cookie.css", document.currentScript.src).href
+    : "assets/css/cookie.css";
+  document.head.append(stylesheet);
   const readChoice = () => { try { const choice = JSON.parse(localStorage.getItem(key)); return choice?.expiresAt > Date.now() ? choice : null; } catch { return null; } };
   const saveChoice = (choice) => localStorage.setItem(key, JSON.stringify({ choice, expiresAt: Date.now() + 180 * 24 * 60 * 60 * 1000 }));
   const removeBanner = () => document.querySelector(".cookie-banner")?.remove();

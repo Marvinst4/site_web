@@ -1,4 +1,4 @@
-const CACHE_NAME = "jeunes-explorateurs-v1";
+const CACHE_NAME = "jeunes-explorateurs-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -16,6 +16,7 @@ const APP_SHELL = [
   "./assets/css/hero-photo.css",
   "./assets/css/activity-registration.css",
   "./assets/css/access-to-leisure.css",
+  "./assets/css/cookie.css",
   "./assets/js/app.js",
   "./assets/js/cookie.js",
   "./assets/js/supabase-config.js",
