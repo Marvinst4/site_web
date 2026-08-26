@@ -1,7 +1,8 @@
-const CACHE_NAME = "jeunes-explorateurs-v6";
+const CACHE_NAME = "jeunes-explorateurs-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./inscription.html",
   "./assets/css/styles.css",
   "./assets/css/theme.css",
   "./assets/js/theme.js",
@@ -15,9 +16,11 @@ const APP_SHELL = [
   "./assets/css/privacy.css",
   "./assets/css/hero-photo.css",
   "./assets/css/activity-registration.css",
+  "./assets/css/registration.css",
   "./assets/css/access-to-leisure.css",
   "./assets/css/cookie.css",
   "./assets/js/app.js",
+  "./assets/js/registration.js",
   "./assets/js/cookie.js",
   "./assets/js/supabase-config.js",
   "./assets/js/stripe-config.js",

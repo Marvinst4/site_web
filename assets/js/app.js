@@ -73,7 +73,7 @@ function renderActivities() {
       <span class="tag">${escapeHtml(activity.category)}</span>
       <h3>${escapeHtml(activity.title)}</h3>
       <div class="meta"><strong>${formatDate(activity.date)}</strong><br>${escapeHtml(activity.place)} · ${activity.spots} places disponibles</div>
-      <button class="activity-registration-button" type="button" data-register-activity="${index}">Inscrire un enfant <span>→</span></button>
+      <a class="activity-registration-button" href="inscription.html?activity=${encodeURIComponent(activity.title)}">Inscrire un enfant <span>→</span></a>
     </article>`).join("");
 }
 
@@ -106,13 +106,6 @@ function openFormModal(type, selectedActivity = "") {
 }
 
 document.querySelectorAll("[data-open-modal]").forEach(button => button.addEventListener("click", () => openFormModal(button.dataset.openModal)));
-document.querySelector("#activity-list").addEventListener("click", event => {
-  const button = event.target.closest("[data-register-activity]");
-  if (!button) return;
-  const activity = getActivities()[Number(button.dataset.registerActivity)];
-  if (activity) openFormModal("inscription", activity.title);
-});
-
 document.querySelectorAll(".close").forEach(button => button.addEventListener("click", () => button.closest("dialog").close()));
 document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); }));
 
@@ -159,6 +152,6 @@ renderActivities();
 loadPublishedActivities();
 
 if (new URLSearchParams(window.location.search).get("inscription") === "1") {
-  window.history.replaceState({}, "", "index.html#agir");
-  openFormModal("inscription");
+  const activity = new URLSearchParams(window.location.search).get("activity");
+  window.location.assign(`inscription.html${activity ? `?activity=${encodeURIComponent(activity)}` : ""}`);
 }
