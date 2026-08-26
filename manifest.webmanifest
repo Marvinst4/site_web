@@ -10,8 +10,8 @@
   "theme_color": "#173a38",
   "icons": [
     {
-      "src": "assets/images/logo-petits-explorateurs.png",
-      "sizes": "2000x2000",
+      "src": "assets/images/logo-petits-explorateurs-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }

@@ -1,4 +1,4 @@
-const CACHE_NAME = "jeunes-explorateurs-v5";
+const CACHE_NAME = "jeunes-explorateurs-v6";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -21,8 +21,8 @@ const APP_SHELL = [
   "./assets/js/cookie.js",
   "./assets/js/supabase-config.js",
   "./assets/js/stripe-config.js",
-  "./assets/images/logo-petits-explorateurs.png",
-  "./assets/images/sortie-musee-enfants.png"
+  "./assets/images/logo-petits-explorateurs-512.png",
+  "./assets/images/sortie-musee-enfants.jpg"
 ];
 
 self.addEventListener("install", event => {
