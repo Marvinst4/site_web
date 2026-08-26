@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin.html
+Disallow: /merci-don.html
+Disallow: /don-annule.html
+
+Sitemap: https://lesjeunesexplorateurs.fr/sitemap.xml
