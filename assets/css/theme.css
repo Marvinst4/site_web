@@ -59,5 +59,18 @@ html[data-theme="dark"] .theme-toggle:hover { background:#f5c843; color:#173a38;
 html[data-theme="dark"] input, html[data-theme="dark"] select, html[data-theme="dark"] textarea { background:#102724; color:#eaf4ee; border-color:#55786e; }
 html[data-theme="dark"] .privacy-page section, html[data-theme="dark"] .meta { border-color:#45665e; }
 html[data-theme="dark"] .mobile-menu-toggle, html[data-theme="dark"] .site-header.mobile-menu-open nav { background:#214a42; }
+html[data-theme="dark"] .registration-page { background:#102724; color:#eaf4ee; }
+html[data-theme="dark"] .registration-hero { background:#183833; }
+html[data-theme="dark"] .registration-hero > p:not(.eyebrow), html[data-theme="dark"] .registration-step-list p, html[data-theme="dark"] .registration-detail-grid p, html[data-theme="dark"] .faq-list details p { color:#c5d8d0; }
+html[data-theme="dark"] .registration-details { background:#1b413a; }
+html[data-theme="dark"] .registration-detail-grid article { background:#214a42; }
+html[data-theme="dark"] .registration-step-list article, html[data-theme="dark"] .faq-list, html[data-theme="dark"] .faq-list details { border-color:#45665e; }
+html[data-theme="dark"] .registration-form-section { background:#173a38; }
+html[data-theme="dark"] .registration-form { background:#214a42; color:#eaf4ee; }
+html[data-theme="dark"] .registration-form input, html[data-theme="dark"] .registration-form select { background:#102724; color:#eaf4ee; border-color:#55786e; }
+html[data-theme="dark"] .registration-form .privacy-check { color:#c5d8d0; }
+html[data-theme="dark"] .registration-form .privacy-check a, html[data-theme="dark"] .faq-list a { color:#fff4be; }
+html[data-theme="dark"] .registration-form .form-note { color:#a9c2b8; }
+html[data-theme="dark"] .faq-section { background:#102724; }
 @media (max-width:720px) { .site-header > .mobile-menu-toggle { position:absolute; right:6vw; top:23px; } .site-header > .theme-toggle:not(.floating) { right:calc(6vw + 54px); top:23px; } }
 @media (prefers-reduced-motion: reduce) { .theme-toggle { transition:none; } }
