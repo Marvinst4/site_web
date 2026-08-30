@@ -39,3 +39,7 @@ Exécutez enfin `supabase/migrations/006_lock_down_donations_and_rls_function.sq
 ## Candidatures bénévoles
 
 Exécutez `supabase/migrations/007_volunteer_applications.sql` pour enregistrer les candidatures envoyées depuis `benevole.html`. Les visiteurs peuvent uniquement créer leur propre demande : aucune candidature n’est lisible depuis le site. Pour les consulter, ouvrez **Table Editor > volunteer_applications** dans Supabase.
+
+## Annuaire des bénévoles
+
+Exécutez ensuite `supabase/migrations/008_volunteers_admin.sql` dans le SQL Editor. Cette migration crée la table `volunteers`, accessible uniquement au compte administrateur `infos@lesjeunesexplorateurs.fr`. Depuis `admin.html`, vous pourrez ajouter, modifier et supprimer le prénom, le nom, l’adresse e-mail, le téléphone, l’âge et la ville de résidence de chaque bénévole.

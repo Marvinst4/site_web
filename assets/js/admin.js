@@ -9,10 +9,19 @@ const activityFormTitle = document.querySelector("#activity-form-title");
 const activitySubmitButton = document.querySelector("#activity-submit-button");
 const cancelEditButton = document.querySelector("#cancel-edit-button");
 const activitiesCount = document.querySelector("#activities-count");
+const volunteerMessage = document.querySelector("#volunteer-admin-message");
+const volunteerForm = document.querySelector("#volunteer-admin-form");
+const volunteerList = document.querySelector("#admin-volunteer-list");
+const volunteerFormTitle = document.querySelector("#volunteer-form-title");
+const volunteerSubmitButton = document.querySelector("#volunteer-submit-button");
+const cancelVolunteerEditButton = document.querySelector("#cancel-volunteer-edit-button");
+const volunteersCount = document.querySelector("#volunteers-count");
 
 let accessToken = sessionStorage.getItem("admin-access-token");
 let activities = [];
 let editingActivityId = null;
+let volunteers = [];
+let editingVolunteerId = null;
 
 function showDashboard() { loginPanel.hidden = true; dashboardPanel.hidden = false; }
 function showLogin() { dashboardPanel.hidden = true; loginPanel.hidden = false; }
@@ -32,6 +41,29 @@ function resetActivityForm() {
   activityFormTitle.textContent = "Ajouter une activité";
   activitySubmitButton.innerHTML = "Publier l’activité <span>→</span>";
   cancelEditButton.hidden = true;
+}
+
+function resetVolunteerForm() {
+  editingVolunteerId = null;
+  volunteerForm.reset();
+  volunteerFormTitle.textContent = "Ajouter un bénévole";
+  volunteerSubmitButton.innerHTML = "Ajouter le bénévole <span>→</span>";
+  cancelVolunteerEditButton.hidden = true;
+}
+
+function setEditingVolunteer(volunteer) {
+  editingVolunteerId = volunteer.id;
+  volunteerForm.elements.first_name.value = volunteer.first_name;
+  volunteerForm.elements.last_name.value = volunteer.last_name;
+  volunteerForm.elements.email.value = volunteer.email;
+  volunteerForm.elements.phone.value = volunteer.phone;
+  volunteerForm.elements.age.value = volunteer.age;
+  volunteerForm.elements.city.value = volunteer.city;
+  volunteerFormTitle.textContent = "Modifier le bénévole";
+  volunteerSubmitButton.innerHTML = "Enregistrer les modifications <span>→</span>";
+  cancelVolunteerEditButton.hidden = false;
+  volunteerForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  volunteerForm.elements.first_name.focus();
 }
 
 function setEditingActivity(activity) {
@@ -63,6 +95,19 @@ function renderActivities() {
   }).join("");
 }
 
+function renderVolunteers() {
+  volunteersCount.textContent = volunteers.length + " bénévole" + (volunteers.length > 1 ? "s" : "");
+  if (!volunteers.length) {
+    volunteerList.innerHTML = '<p class="admin-empty-state">Aucun bénévole pour le moment. Ajoutez le premier membre de votre équipe ci-dessus.</p>';
+    return;
+  }
+
+  volunteerList.innerHTML = volunteers.map(volunteer => {
+    const fullName = escapeHtml(volunteer.first_name) + " " + escapeHtml(volunteer.last_name);
+    return '<article class="admin-volunteer-item"><div class="admin-volunteer-content"><div class="admin-volunteer-topline"><span>' + fullName + '</span><span>' + Number(volunteer.age) + ' ans</span></div><p><a href="mailto:' + escapeHtml(volunteer.email) + '">' + escapeHtml(volunteer.email) + '</a> · <a href="tel:' + escapeHtml(volunteer.phone) + '">' + escapeHtml(volunteer.phone) + '</a></p><p>' + escapeHtml(volunteer.city) + '</p></div><div class="admin-volunteer-actions"><button class="admin-action-button" type="button" data-edit-volunteer-id="' + volunteer.id + '">Modifier</button><button class="admin-action-button admin-delete-button" type="button" data-delete-volunteer-id="' + volunteer.id + '">Supprimer</button></div></article>';
+  }).join("");
+}
+
 async function api(path, options = {}) {
   if (!config?.url || !config?.anonKey) throw new Error("Supabase n’est pas configuré.");
   const response = await fetch(config.url.replace(/\/$/, "") + path, {
@@ -83,7 +128,7 @@ function handleSessionError(error) {
   sessionStorage.removeItem("admin-access-token");
   accessToken = null;
   showLogin();
-  message(loginMessage, "Votre session a expiré ou ce compte n’est pas autorisé à gérer les activités.", "error");
+  message(loginMessage, "Votre session a expiré ou ce compte n’est pas autorisé à gérer les activités et les bénévoles.", "error");
   return true;
 }
 
@@ -97,7 +142,17 @@ async function loadActivities() {
   }
 }
 
-if (accessToken) { showDashboard(); loadActivities(); }
+async function loadVolunteers() {
+  volunteerList.innerHTML = '<p class="admin-empty-state">Chargement des bénévoles…</p>';
+  try {
+    volunteers = await api("/rest/v1/volunteers?select=id,first_name,last_name,email,phone,age,city,created_at&order=last_name.asc,first_name.asc");
+    renderVolunteers();
+  } catch (error) {
+    if (!handleSessionError(error)) volunteerList.innerHTML = '<p class="admin-empty-state admin-error-text">' + escapeHtml(error.message) + "</p>";
+  }
+}
+
+if (accessToken) { showDashboard(); loadActivities(); loadVolunteers(); }
 
 document.querySelector("#login-form").addEventListener("submit", async event => {
   event.preventDefault();
@@ -113,6 +168,7 @@ document.querySelector("#login-form").addEventListener("submit", async event => 
     event.target.reset();
     showDashboard();
     loadActivities();
+    loadVolunteers();
   } catch (error) { message(loginMessage, error.message, "error"); }
 });
 
@@ -157,4 +213,45 @@ activityList.addEventListener("click", async event => {
 });
 
 cancelEditButton.addEventListener("click", () => { resetActivityForm(); message(activityMessage, "Modification annulée."); });
-document.querySelector("#logout-button").addEventListener("click", () => { sessionStorage.removeItem("admin-access-token"); accessToken = null; resetActivityForm(); showLogin(); message(loginMessage, "Vous êtes déconnecté."); });
+
+volunteerForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  const data = Object.fromEntries(new FormData(volunteerForm));
+  data.age = Number(data.age);
+  const editing = Boolean(editingVolunteerId);
+  message(volunteerMessage, editing ? "Enregistrement en cours…" : "Ajout en cours…");
+  try {
+    const path = editing ? "/rest/v1/volunteers?id=eq." + encodeURIComponent(editingVolunteerId) : "/rest/v1/volunteers";
+    await api(path, { method: editing ? "PATCH" : "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify(data) });
+    resetVolunteerForm();
+    message(volunteerMessage, editing ? "Les modifications sont enregistrées." : "Le bénévole est enregistré.", "success");
+    loadVolunteers();
+  } catch (error) {
+    if (!handleSessionError(error)) message(volunteerMessage, error.message, "error");
+  }
+});
+
+volunteerList.addEventListener("click", async event => {
+  const editId = event.target.closest("[data-edit-volunteer-id]")?.dataset.editVolunteerId;
+  const deleteId = event.target.closest("[data-delete-volunteer-id]")?.dataset.deleteVolunteerId;
+  if (editId) {
+    const volunteer = volunteers.find(item => item.id === editId);
+    if (volunteer) setEditingVolunteer(volunteer);
+    return;
+  }
+  if (!deleteId) return;
+  const volunteer = volunteers.find(item => item.id === deleteId);
+  if (!volunteer || !window.confirm("Supprimer définitivement le bénévole « " + volunteer.first_name + " " + volunteer.last_name + " » ?")) return;
+  message(volunteerMessage, "Suppression en cours…");
+  try {
+    await api("/rest/v1/volunteers?id=eq." + encodeURIComponent(deleteId), { method: "DELETE", headers: { Prefer: "return=minimal" } });
+    if (editingVolunteerId === deleteId) resetVolunteerForm();
+    message(volunteerMessage, "Le bénévole a été supprimé.", "success");
+    loadVolunteers();
+  } catch (error) {
+    if (!handleSessionError(error)) message(volunteerMessage, error.message, "error");
+  }
+});
+
+cancelVolunteerEditButton.addEventListener("click", () => { resetVolunteerForm(); message(volunteerMessage, "Modification annulée."); });
+document.querySelector("#logout-button").addEventListener("click", () => { sessionStorage.removeItem("admin-access-token"); accessToken = null; resetActivityForm(); resetVolunteerForm(); showLogin(); message(loginMessage, "Vous êtes déconnecté."); });

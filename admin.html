@@ -32,8 +32,8 @@
         <p id="login-message" class="admin-message" aria-live="polite"></p>
       </section>
       <section id="dashboard-panel" class="admin-card" hidden>
-        <div class="admin-heading"><div><p class="eyebrow">Espace privé</p><h1>Gérer les activités</h1></div><button id="logout-button" class="text-link" type="button">Se déconnecter</button></div>
-        <p>Ajoutez, modifiez ou retirez les sorties proposées sur le site. Les activités non publiées restent visibles uniquement ici.</p>
+        <div class="admin-heading"><div><p class="eyebrow">Espace privé</p><h1>Gérer les activités et les bénévoles</h1></div><button id="logout-button" class="text-link" type="button">Se déconnecter</button></div>
+        <p>Ajoutez, modifiez ou retirez les sorties proposées sur le site et gardez votre équipe de bénévoles à jour.</p>
 
         <section class="admin-form-section" aria-labelledby="activity-form-title">
           <div class="admin-section-heading"><h2 id="activity-form-title">Ajouter une activité</h2><button id="cancel-edit-button" class="text-link" type="button" hidden>Annuler la modification</button></div>
@@ -44,6 +44,27 @@
         <section class="admin-activities" aria-labelledby="admin-activities-title">
           <div class="admin-section-heading"><h2 id="admin-activities-title">Toutes les activités</h2><span id="activities-count" class="activities-count">0 activité</span></div>
           <div id="admin-activity-list" class="admin-activity-list" aria-live="polite"></div>
+        </section>
+
+        <section class="admin-form-section admin-volunteer-form-section" aria-labelledby="volunteer-form-title">
+          <div class="admin-section-heading"><h2 id="volunteer-form-title">Ajouter un bénévole</h2><button id="cancel-volunteer-edit-button" class="text-link" type="button" hidden>Annuler la modification</button></div>
+          <form id="volunteer-admin-form">
+            <div class="admin-volunteer-form-grid">
+              <label>Prénom<input name="first_name" required maxlength="80" autocomplete="given-name" placeholder="Ex. Camille" /></label>
+              <label>Nom<input name="last_name" required maxlength="100" autocomplete="family-name" placeholder="Ex. Martin" /></label>
+              <label>Adresse e-mail<input name="email" type="email" required maxlength="254" autocomplete="email" placeholder="camille@example.com" /></label>
+              <label>Téléphone<input name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="06 12 34 56 78" /></label>
+              <label>Âge<input name="age" type="number" required min="1" max="120" inputmode="numeric" placeholder="Ex. 32" /></label>
+              <label>Ville de résidence<input name="city" required maxlength="120" autocomplete="address-level2" placeholder="Ex. Fort-de-France" /></label>
+            </div>
+            <button id="volunteer-submit-button" class="button" type="submit">Ajouter le bénévole <span>→</span></button>
+          </form>
+          <p id="volunteer-admin-message" class="admin-message" aria-live="polite"></p>
+        </section>
+
+        <section class="admin-activities admin-volunteers" aria-labelledby="admin-volunteers-title">
+          <div class="admin-section-heading"><h2 id="admin-volunteers-title">Tous les bénévoles</h2><span id="volunteers-count" class="activities-count">0 bénévole</span></div>
+          <div id="admin-volunteer-list" class="admin-volunteer-list" aria-live="polite"></div>
         </section>
       </section>
     </main>
