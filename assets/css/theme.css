@@ -34,6 +34,8 @@ html[data-theme="dark"] .admin-delete-button:hover { background:#603c36; }
 html[data-theme="dark"] .admin-volunteer-item { background:#214a42; border-color:#45665e; }
 html[data-theme="dark"] .admin-volunteer-item p { color:#c5d8d0; }
 html[data-theme="dark"] .admin-volunteer-topline span:last-child { color:#a9c2b8; }
+html[data-theme="dark"] .admin-volunteer-actions .admin-action-button:not(.admin-delete-button) { background:#315f55; border-color:#6b9787; color:#fff4be; }
+html[data-theme="dark"] .admin-volunteer-actions .admin-action-button:not(.admin-delete-button):hover { background:#3d7466; }
 html[data-theme="dark"] .volunteer-hero { background:#183833; }
 html[data-theme="dark"] .volunteer-hero p:not(.eyebrow), html[data-theme="dark"] .volunteer-heading > p:last-child, html[data-theme="dark"] .volunteer-form-intro > p:not(.eyebrow), html[data-theme="dark"] .role-card p { color:#c5d8d0; }
 html[data-theme="dark"] .role-card, html[data-theme="dark"] .volunteer-form { background:#214a42; border-color:#45665e; }

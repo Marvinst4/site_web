@@ -1,4 +1,4 @@
-const CACHE_NAME = "jeunes-explorateurs-v8";
+const CACHE_NAME = "jeunes-explorateurs-v9";
 const APP_SHELL = [
   "./",
   "./index.html",
